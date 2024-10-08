@@ -1,6 +1,6 @@
 import { hashSync } from "bcrypt";
 import { prisma } from "./prisma-client";
-import { categories, ingredients, products } from "./constants";
+import { categories, _ingredients, products } from "./constants";
 import { Prisma } from "@prisma/client";
 
 const randomDecimalNumber = (min: number, max: number) => {
@@ -49,7 +49,7 @@ async function up() {
 	});
 
 	await prisma.ingredient.createMany({
-		data: ingredients,
+		data: _ingredients,
 	});
 
 	await prisma.product.createMany({
@@ -61,8 +61,8 @@ async function up() {
 			name: "Пепперони фреш",
 			imageUrl: "../assets/pizzas-images/pepperonifresh.avif",
 			categoryId: 1,
-			ingredient: {
-				connect: ingredients.slice(0, 5),
+			ingredients: {
+				connect: _ingredients.slice(0, 5),
 			},
 		},
 	});
@@ -72,8 +72,8 @@ async function up() {
 			name: "Сырная",
 			imageUrl: "../assets/pizzas-images/syrnaya.avif",
 			categoryId: 1,
-			ingredient: {
-				connect: ingredients.slice(5, 10),
+			ingredients: {
+				connect: _ingredients.slice(5, 10),
 			},
 		},
 	});
@@ -83,8 +83,8 @@ async function up() {
 			name: "Чоризо фреш",
 			imageUrl: "../assets/pizzas-images/chorizofresh.avif",
 			categoryId: 1,
-			ingredient: {
-				connect: ingredients.slice(10, 40),
+			ingredients: {
+				connect: _ingredients.slice(10, 40),
 			},
 		},
 	});

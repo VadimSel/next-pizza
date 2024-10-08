@@ -1,10 +1,6 @@
-'use client'
+"use client";
 
-import {
-	PizzaSize,
-	PizzaType,
-	pizzaTypes
-} from "@/constants/pizza";
+import { PizzaSize, PizzaType, pizzaTypes } from "@/constants/pizza";
 import { usePizzaOptions } from "@/hooks/use-pizza-options";
 import { getPizzaDetails } from "@/lib/get-pizza-details";
 import { cn } from "@/lib/utils";
@@ -21,7 +17,7 @@ interface Props {
 	name: string;
 	ingredients: Ingredient[];
 	items: ProductItem[];
-	onClickAddCart?: VoidFunction;
+	onSubmit: (itemId: number, ingredients: number[]) => void
 	className?: string;
 }
 
@@ -30,7 +26,7 @@ export const ChoosePizzaForm: FC<Props> = ({
 	name,
 	ingredients,
 	items,
-	onClickAddCart,
+	onSubmit,
 	className,
 }) => {
 	const {
@@ -38,6 +34,7 @@ export const ChoosePizzaForm: FC<Props> = ({
 		type,
 		selectedIngredients,
 		availableSizes,
+		currentItemId,
 		setSize,
 		setType,
 		addIngredient,
@@ -52,7 +49,9 @@ export const ChoosePizzaForm: FC<Props> = ({
 	);
 
 	const handleClickAdd = () => {
-		onClickAddCart?.();
+		if (currentItemId) {
+		onSubmit(currentItemId, Array.from(selectedIngredients));
+		}
 	};
 
 	return (
